@@ -1,12 +1,25 @@
 FROM registry.fedoraproject.org/fedora-minimal:44
 
 LABEL maintainer "NoEnv"
-LABEL version "1.0.1"
+LABEL version "1.0.2"
 LABEL description "Gitea Action Runner Images based on Fedora"
 
-RUN microdnf -y --nodocs install buildah && \
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.5/install.sh | bash && \
-    \. "$HOME/.nvm/nvm.sh" && \
-    nvm install 24 && \
+ENV NODE_VERSION 24.17.0
+
+RUN microdnf -y --nodocs install buildah git-core && \
+    case "$(arch)" in \
+       aarch64|arm64|arm64e) \
+         NODE_BINARY_URL="https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-arm64.tar.gz"; \
+         ;; \
+       x86_64|amd64|i386) \
+          NODE_BINARY_URL="https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.gz"; \
+         ;; \
+       *) \
+         echo "Unsupported arch: ${arch}"; \
+         exit 1; \
+         ;; \
+    esac; \
+    curl -fsSLo /tmp/node-linux.tar.gz ${NODE_BINARY_URL} && \
+    tar -xf /tmp/node-linux.tar.gz -C /usr/local --strip-components=1 --no-same-owner && \
     microdnf clean all && \
-    rm -rf /tmp/* /var/tmp/* /var/log/*.log /var/cache/yum/* /var/lib/dnf/* /var/lib/rpm/* /root/.gnupg
+    rm -rf /tmp/* /var/tmp/* /var/log/*.log /var/cache/yum/* /var/lib/dnf/* /var/lib/rpm/* /root/.gnupg /tmp/node-linux.tar.xz
