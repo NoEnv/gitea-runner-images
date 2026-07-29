@@ -1,10 +1,10 @@
 FROM registry.fedoraproject.org/fedora-minimal:44
 
 LABEL maintainer "NoEnv"
-LABEL version "1.0.5"
+LABEL version "1.0.6"
 LABEL description "Gitea Action Runner Images based on Fedora"
 
-ENV NODE_VERSION=24.18.0 \
+ENV NODE_VERSION=24.18.1 \
     STORAGE_DRIVER=vfs
 
 RUN microdnf -y --nodocs install buildah git-core cargo awscli2 && \
