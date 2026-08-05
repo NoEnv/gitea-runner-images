@@ -7,7 +7,7 @@ LABEL description "Gitea Action Runner Images based on Fedora"
 ENV NODE_VERSION=24.19.0 \
     STORAGE_DRIVER=vfs
 
-RUN microdnf -y --nodocs install buildah git-core cargo awscli2 && \
+RUN microdnf -y --nodocs install buildah git-core cargo awscli2 openssl-devel && \
     case "$(arch)" in \
        aarch64|arm64|arm64e) \
          NODE_BINARY_URL="https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-arm64.tar.gz"; \
