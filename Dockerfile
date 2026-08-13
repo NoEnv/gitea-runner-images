@@ -5,8 +5,12 @@ LABEL version "1.0.10"
 LABEL description "Gitea Action Runner Images based on Fedora"
 
 ENV NODE_VERSION=24.19.0 \
+    RUST_VERSION=1.97.1 \
     TEA_VERSION=0.15.1 \
-    STORAGE_DRIVER=vfs
+    STORAGE_DRIVER=vfs \
+    RUSTUP_HOME=/usr/local/rustup \
+    CARGO_HOME=/usr/local/cargo \
+    PATH=/usr/local/cargo/bin:$PATH
 
 RUN microdnf -y --nodocs install buildah git-core rustup awscli2 openssl-devel gcc-c++ && \
     case "$(arch)" in \
@@ -27,6 +31,8 @@ RUN microdnf -y --nodocs install buildah git-core rustup awscli2 openssl-devel g
     tar -xf /tmp/node-linux.tar.gz -C /usr/local --strip-components=1 --no-same-owner && \
     curl -fsSLo /tmp/tea-linux ${TEA_BINARY_URL} && \
     mv /tmp/tea-linux /usr/local/bin/tea && chmod +x /usr/local/bin/tea && \
-    rustup-init -q -y && \
+    rustup-init -y --no-modify-path --profile minimal --default-toolchain $RUST_VERSION  && \
+    chmod -R a+w $RUSTUP_HOME $CARGO_HOME && \
+    microdnf remove rustup && \
     microdnf clean all && \
     rm -rf /tmp/* /var/tmp/* /var/log/*.log /var/cache/yum/* /var/lib/dnf/* /var/lib/rpm/* /root/.gnupg /tmp/node-linux.tar.xz
