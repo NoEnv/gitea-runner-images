@@ -33,6 +33,6 @@ RUN microdnf -y --nodocs install buildah git-core rustup awscli2 openssl-devel g
     mv /tmp/tea-linux /usr/local/bin/tea && chmod +x /usr/local/bin/tea && \
     rustup-init -y --no-modify-path --profile minimal --default-toolchain $RUST_VERSION  && \
     chmod -R a+w $RUSTUP_HOME $CARGO_HOME && \
-    microdnf remove rustup && \
+    microdnf -y remove rustup && \
     microdnf clean all && \
     rm -rf /tmp/* /var/tmp/* /var/log/*.log /var/cache/yum/* /var/lib/dnf/* /var/lib/rpm/* /root/.gnupg /tmp/node-linux.tar.xz
