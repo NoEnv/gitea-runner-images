@@ -8,7 +8,7 @@ ENV NODE_VERSION=24.19.0 \
     TEA_VERSION=0.15.1 \
     STORAGE_DRIVER=vfs
 
-RUN microdnf -y --nodocs install buildah git-core cargo rustup awscli2 openssl-devel gcc-c++ && \
+RUN microdnf -y --nodocs install buildah git-core rustup awscli2 openssl-devel gcc-c++ && \
     case "$(arch)" in \
        aarch64|arm64|arm64e) \
          NODE_BINARY_URL="https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-arm64.tar.gz"; \
@@ -27,5 +27,6 @@ RUN microdnf -y --nodocs install buildah git-core cargo rustup awscli2 openssl-d
     tar -xf /tmp/node-linux.tar.gz -C /usr/local --strip-components=1 --no-same-owner && \
     curl -fsSLo /tmp/tea-linux ${TEA_BINARY_URL} && \
     mv /tmp/tea-linux /usr/local/bin/tea && chmod +x /usr/local/bin/tea && \
+    rustup-init -q -y && \
     microdnf clean all && \
     rm -rf /tmp/* /var/tmp/* /var/log/*.log /var/cache/yum/* /var/lib/dnf/* /var/lib/rpm/* /root/.gnupg /tmp/node-linux.tar.xz
