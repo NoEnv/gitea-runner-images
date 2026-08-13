@@ -26,6 +26,6 @@ RUN microdnf -y --nodocs install buildah git-core cargo awscli2 openssl-devel gc
     curl -fsSLo /tmp/node-linux.tar.gz ${NODE_BINARY_URL} && \
     tar -xf /tmp/node-linux.tar.gz -C /usr/local --strip-components=1 --no-same-owner && \
     curl -fsSLo /tmp/tea-linux ${TEA_BINARY_URL} && \
-    mv /tmp/tea-linux /usr/local/tea && chmod +x /usr/local/tea && \
+    mv /tmp/tea-linux /usr/local/bin/tea && chmod +x /usr/local/bin/tea && \
     microdnf clean all && \
     rm -rf /tmp/* /var/tmp/* /var/log/*.log /var/cache/yum/* /var/lib/dnf/* /var/lib/rpm/* /root/.gnupg /tmp/node-linux.tar.xz
