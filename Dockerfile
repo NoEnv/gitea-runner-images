@@ -8,7 +8,7 @@ ENV NODE_VERSION=24.19.0 \
     TEA_VERSION=0.15.1 \
     STORAGE_DRIVER=vfs
 
-RUN microdnf -y --nodocs install buildah git-core cargo awscli2 openssl-devel gcc-c++ && \
+RUN microdnf -y --nodocs install buildah git-core cargo rustup awscli2 openssl-devel gcc-c++ && \
     case "$(arch)" in \
        aarch64|arm64|arm64e) \
          NODE_BINARY_URL="https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-arm64.tar.gz"; \
