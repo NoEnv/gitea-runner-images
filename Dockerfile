@@ -4,8 +4,8 @@ LABEL maintainer "NoEnv"
 LABEL version "1.0.12"
 LABEL description "Gitea Action Runner Images based on Fedora"
 
-ENV NODE_VERSION=24.20.0 \
-    RUST_VERSION=1.98.0 \
+ENV NODE_VERSION=24.21.0 \
+    RUST_VERSION=1.98.1 \
     TEA_VERSION=0.15.1 \
     STORAGE_DRIVER=vfs \
     RUSTUP_HOME=/usr/local/rustup \
