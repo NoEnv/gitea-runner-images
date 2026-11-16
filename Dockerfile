@@ -1,11 +1,11 @@
 FROM registry.fedoraproject.org/fedora-minimal:44
 
 LABEL maintainer "NoEnv"
-LABEL version "1.0.16"
+LABEL version "1.0.17"
 LABEL description "Gitea Action Runner Images based on Fedora"
 
-ENV NODE_VERSION=24.22.2 \
-    RUST_VERSION=1.99.1 \
+ENV NODE_VERSION=24.22.3 \
+    RUST_VERSION=1.100.0 \
     TEA_VERSION=0.16.0 \
     STORAGE_DRIVER=vfs \
     RUSTUP_HOME=/usr/local/rustup \
